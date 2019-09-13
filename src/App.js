@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import SimpleTabs from "./components/simpleTabs"
+// import FormikForm from "./components/formikForm"
+import SingUp from "./components/singUp"
+import SingIn from "./components/singIn"
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to='/singin'>"Sing In"</Link>
+            </li>
+            <li>
+              <Link to='/singup'>"Sing Up"</Link>
+            </li>
+            <li>
+              <Link to='/dashboard'>Dashboard</Link>
+            </li>
+          </ul>
+        </nav>
 
-export default App;
+        <Route path='/singin' exact component={SingIn} />
+        <Route path='/singup' component={SingUp} />
+        <Route path='/dashboard' component={SimpleTabs} />
+      </div>
+    </Router>
+  )
+}
+    
+    export default App;
