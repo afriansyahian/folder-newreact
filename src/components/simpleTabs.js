@@ -6,6 +6,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+
 import SingUp from "./singUp";
 import SingIn from "./singIn";
 
@@ -56,41 +57,43 @@ export default function SimpleTabs(props) {
 
   const logout = () => {
     props.history.push("/");
-    localStorage.setItem("isLoggedIn", false)
+    localStorage.setItem("isLoggedIn", false);
   };
 
-  return (
-    <div className={classes.root}>
-      {JSON.parse(localStorage.getItem("isLoggedIn"))?
-      <div>
-        <div style={{ textAlign: "right" }}>
-        <span onClick={logout} style={{ cursor: "pointer" }}>
-          logout
-        </span>
-      </div>
+  if (localStorage.getItem("isLoggedIn") === "false") {
+    return <div>Siahkan login dahulu</div>;
+  } else {
+    return (
+      <div className={classes.root}>
+        <div>
+          <div style={{ textAlign: "right" }}>
+            <span onClick={logout} style={{ cursor: "pointer" }}>
+              logout
+            </span>
+          </div>
 
-      <AppBar position="static">
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="simple tabs example"
-        >
-          <Tab label="Sing Up" {...a11yProps(0)} />
-          <Tab label="Sing In" {...a11yProps(1)} />
-          <Tab label="Item Three" {...a11yProps(2)} />
-        </Tabs>
-      </AppBar>
-      <TabPanel value={value} index={0}>
-        <SingUp />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <SingIn />
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
-      </TabPanel>
-      </div>: <p>belum login</p>}
-      
-    </div>
-  );
+          <AppBar position="static">
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              aria-label="simple tabs example"
+            >
+              <Tab label="Sing Up" {...a11yProps(0)} />
+              <Tab label="Sing In" {...a11yProps(1)} />
+              <Tab label="Item Three" {...a11yProps(2)} />
+            </Tabs>
+          </AppBar>
+          <TabPanel value={value} index={0}>
+            <SingUp />
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            <SingIn />
+          </TabPanel>
+          <TabPanel value={value} index={2}>
+            Item Three
+          </TabPanel>
+        </div>
+      </div>
+    );
+  }
 }

@@ -13,6 +13,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
+import {withRouter} from 'react-router-dom'
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -51,17 +53,23 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function SignUp(props) {
+ function SignUp(props) {
   const [value, setValue] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: ""
   });
-  const classes = useStyles();
+  const classes = useStyles(props);
+  
   function handleSubmit(event) {
-    event.preventDefault();
-    props.history.push("/singin");
+    event.preventDefault()
+    if(value.firstName === '' || value.lastName ==='' || value.email === '' || value.password === ''){
+      alert('Please complete fill the form')
+    }else{
+      localStorage.setItem('userInfo',JSON.stringify(value))
+      props.history.push("/singin");
+    }
     console.log(value);
     console.log(props);
   }
@@ -170,3 +178,5 @@ export default function SignUp(props) {
     </Container>
   );
 }
+
+export default withRouter(SignUp)
